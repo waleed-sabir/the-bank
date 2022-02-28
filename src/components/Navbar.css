@@ -1,0 +1,56 @@
+.navbar {
+  width: 100%;
+  padding: 1rem;
+  background-color: antiquewhite;
+  box-sizing: border-box;
+  /* margin-bottom: 80px; */
+}
+
+.navbar span {
+  font-size: 2rem;
+}
+
+.navbar ul {
+  display: flex;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.navbar li {
+  list-style: none;
+}
+
+.navbar li button {
+  font-size: 1.6rem;
+  padding: 1.2rem;
+  border-radius: 1rem;
+  background-color: burlywood;
+  color: black;
+  transition: all 0.2s;
+}
+
+.navbar li button:hover {
+  background-color: sienna;
+  color: antiquewhite;
+}
+.navbar .logo {
+  font-weight: bold;
+
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+}
+
+.navbar .logo img {
+  margin-right: 0.8rem;
+  width: 3rem;
+}
+
+.navbar a {
+  font-size: 1.6rem;
+  color: #333;
+  text-decoration: none;
+  margin-right: 20px;
+}
