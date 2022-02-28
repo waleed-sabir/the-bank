@@ -5,13 +5,16 @@ import bankIcon from "../assets/bank.svg";
 import React from "react";
 import { Link } from "react-router-dom";
 
+import { useTheme } from "../hooks/useTheme";
+
 export default function Navbar() {
+  const { color } = useTheme();
   return (
-    <div className="navbar">
+    <div className="navbar" style={{ background: color }}>
       <ul>
         <li className="logo">
           <img src={bankIcon} alt="bank logo" />
-          <span>myBank</span>
+          <span>theBank</span>
         </li>
 
         <li>
