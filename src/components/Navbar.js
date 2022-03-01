@@ -36,9 +36,13 @@ export default function Navbar() {
 
         {user && (
           <>
-            <li>Hello, {user.displayName}</li>
+            <li className="displayname">Hello, {user.displayName}</li>
             <li>
-              <button className="btn logout" onClick={logout}>
+              <button
+                className="btn logout"
+                // style={{ background: color }}
+                onClick={logout}
+              >
                 Logout
               </button>
             </li>

@@ -15,23 +15,28 @@
   margin: 0 auto;
   align-items: center;
   justify-content: flex-end;
+  gap: 2rem;
 }
 
 .navbar li {
   list-style: none;
 }
 
+.navbar li.displayname {
+  font-size: 1.6rem;
+}
+
 .navbar li button {
   font-size: 1.6rem;
   padding: 1.2rem;
   border-radius: 1rem;
-  background-color: burlywood;
+  background-color: #e4d6d6;
   color: black;
   transition: all 0.2s;
 }
 
 .navbar li button:hover {
-  background-color: sienna;
+  background-color: #333;
   color: antiquewhite;
 }
 .navbar .logo {
