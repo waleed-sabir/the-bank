@@ -1,29 +1,40 @@
 // styles
 import "./Home.css";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useFirestore } from "../../hooks/useFirestore";
 
-export default function TransactionOperations() {
+export default function TransactionOperations({ uid, displayName }) {
   const [trasnferTo, setTrasnferTo] = useState("");
   const [transferAmount, setTransferAmount] = useState("");
   const [loanAmount, setLoanAmount] = useState("");
   const [confirmEmail, setConfirmEmail] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const { addDocument, response } = useFirestore("transactions");
+
   const handleTransfer = (e) => {
     e.preventDefault();
-    console.log(trasnferTo, transferAmount);
+    addDocument({ trasnferTo, transferAmount, uid, displayName });
   };
 
   const handleRequestLoan = (e) => {
     e.preventDefault();
-    console.log(loanAmount);
+    addDocument({ loanAmount, uid, displayName });
   };
 
   const handleDeleteAccount = (e) => {
     e.preventDefault();
-    console.log(confirmEmail, confirmPassword);
+    console.log({ confirmEmail, confirmPassword, uid, displayName });
   };
+
+  useEffect(() => {
+    if (response.success) {
+      setTrasnferTo("");
+      setTransferAmount("");
+      setLoanAmount("");
+    }
+  }, [response.success]);
 
   return (
     <>

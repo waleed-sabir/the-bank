@@ -16,7 +16,10 @@ export default function Home() {
           <h3>Transaction List</h3>
         </div>
         <div className="sidebar">
-          <TransactionOperations />
+          <TransactionOperations
+            uid={user.uid}
+            displayName={user.displayName}
+          />
         </div>
       </div>
     </div>
