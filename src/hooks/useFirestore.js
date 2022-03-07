@@ -6,6 +6,7 @@ import {
   doc,
   addDoc,
   deleteDoc,
+  updateDoc,
   serverTimestamp,
 } from "firebase/firestore";
 
@@ -28,6 +29,13 @@ const firestoreReducer = (state, action) => {
         error: null,
       };
     case "DELETED_DOCUMENT":
+      return {
+        isPending: false,
+        document: null,
+        success: true,
+        error: null,
+      };
+    case "UPDATED_DOCUMENT":
       return {
         isPending: false,
         document: action.payload,
@@ -82,10 +90,26 @@ export const useFirestore = (clt) => {
 
     try {
       const docRef = doc(db, clt, id);
-      const deletedDocument = await deleteDoc(docRef);
+      await deleteDoc(docRef);
       dispatchIfNotCancelled({
         type: "DELETED_DOCUMENT",
-        payload: deletedDocument,
+      });
+    } catch (err) {
+      dispatchIfNotCancelled({ type: "ERROR", payload: err.message });
+    }
+  };
+
+  // update a document
+  const updateDocument = async (id, updates) => {
+    // document ref
+    const ref = doc(db, clt, id);
+    dispatch({ type: "IS_PENDING" });
+
+    try {
+      const updatedDocument = await updateDoc(ref, updates);
+      dispatchIfNotCancelled({
+        type: "UPDATED_DOCUMENT",
+        payload: updatedDocument,
       });
     } catch (err) {
       dispatchIfNotCancelled({ type: "ERROR", payload: err.message });
@@ -96,5 +120,5 @@ export const useFirestore = (clt) => {
     return () => setIsCancelled(true);
   }, []);
 
-  return { addDocument, deleteDocument, response };
+  return { addDocument, deleteDocument, updateDocument, response };
 };

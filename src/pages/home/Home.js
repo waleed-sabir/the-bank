@@ -4,8 +4,14 @@ import "./Home.css";
 import React from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useCollection } from "../../hooks/useCollection";
-import TransactionOperations from "./TransactionOperations";
+
+// page components
+import TransferMoney from "./TransferMoney";
+import RequestLoan from "./RequestLoan";
+import DeleteAccount from "./DeleteAccount";
+// import TransactionOperations from "./TransactionOperations";
 import TransactionList from "./TransactionList";
+import AccountBalance from "./AccountBalance";
 
 export default function Home() {
   const { user } = useAuthContext();
@@ -15,9 +21,12 @@ export default function Home() {
     user.uid,
   ]);
 
+  // let { documents, error } = useCollection("users", ["uid", "==", user.uid]);
+
   return (
     <div className="home">
       <h1>Welcome to theBank, {user.displayName}!</h1>
+      <AccountBalance user={user} transactions={documents} />
       <div className="container">
         <div className="list">
           {error && <p>{error}</p>}
@@ -25,10 +34,9 @@ export default function Home() {
           {/* <h3>Transaction List</h3> */}
         </div>
         <div className="sidebar">
-          <TransactionOperations
-            uid={user.uid}
-            displayName={user.displayName}
-          />
+          <TransferMoney uid={user.uid} displayName={user.displayName} />
+          <RequestLoan uid={user.uid} displayName={user.displayName} />
+          <DeleteAccount uid={user.uid} displayName={user.displayName} />
         </div>
       </div>
     </div>

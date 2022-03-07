@@ -1,13 +1,18 @@
 import { useState, useEffect } from "react";
-import { auth } from "../firebase/config";
+import { auth, db } from "../firebase/config";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useAuthContext } from "./useAuthContext";
+import { useFirestore } from "./useFirestore";
+
+// import { doc, setDoc, collection } from "firebase/firestore";
 
 export const useSignup = () => {
   const [isCancelled, setIsCancelled] = useState(false);
   const [error, setError] = useState(null);
   const [isPending, setIsPending] = useState(false);
   const { dispatch } = useAuthContext();
+
+  const { addDocument } = useFirestore("users");
 
   const signup = async (email, password, displayName) => {
     setError(null);
@@ -24,6 +29,16 @@ export const useSignup = () => {
 
       // add displayName to user
       await updateProfile(res.user, { displayName });
+
+      // create a user document
+      // const colRef = doc(collection(db, "users"));
+      // await setDoc(colRef, { uid: res.user.uid, displayName });
+      addDocument({
+        uid: res.user.uid,
+        displayName,
+        email: res.user.email,
+        balance: 100000,
+      });
 
       // dispatch a LOGIN action
       dispatch({ type: "LOGIN", payload: res.user });
