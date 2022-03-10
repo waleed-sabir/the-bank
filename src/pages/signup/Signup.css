@@ -1,23 +1,36 @@
-.register-form {
-  background-color: #eaeaea;
+.signup-form {
   max-width: 360px;
   margin: 60px auto;
   padding: 2.8rem;
   border-radius: 1rem;
+  color: #fff;
 }
-.register-form label {
+.signup-form label {
   display: block;
   text-align: left;
   margin: 30px auto;
 }
-.register-form span {
-  font-size: 1.2rem;
+.signup-form span {
+  font-size: 1.6rem;
   display: block;
   margin-bottom: 6px;
 }
-.register-form input {
+.signup-form input {
   padding: 8px 6px;
 
   color: #777;
   width: 97%;
+}
+
+.signup-form ::-webkit-input-placeholder {
+  color: #828282;
+}
+
+.signup-form button {
+  color: #fff;
+  transition: all 0.2s;
+}
+
+.signup-form button:hover {
+  transform: scale(1.1);
 }

@@ -5,7 +5,13 @@
 }
 
 .home h1 {
+  color: #000;
   font-size: 2.4rem;
+  text-align: center;
+}
+
+.home.dark h1 {
+  color: #fff;
 }
 
 .home p {
@@ -32,21 +38,88 @@
   /* background-color: red; */
 }
 
+/* TRANSFER MONEY SECTION */
+
 .home .container .sidebar .money {
-  background-color: #8c7a6b;
+  background-color: rgb(191, 191, 191);
+  color: #000;
   border-radius: 1rem;
   padding: 3rem 4rem;
 }
 
+.home .container .sidebar .money.dark {
+  background-color: #777;
+}
+
+.home .container .sidebar .money.dark {
+  color: #fff;
+}
+
+.home .container .sidebar .money .btn {
+  color: #000;
+  transition: all 0.2s;
+}
+
+.home .container .sidebar .money .btn:hover {
+  transform: scale(1.1);
+}
+
+.home .container .sidebar .money.dark .btn {
+  color: #fff;
+}
+
+/* REQUEST LOAN SECTION */
+
 .home .container .sidebar .loan {
-  background-color: #bc8034;
+  color: #000;
+  background-color: #a6b07e;
   border-radius: 1rem;
   padding: 3rem 4rem;
 }
+
+.home .container .sidebar .loan.dark {
+  color: #fff;
+  background-color: #6a7152;
+}
+
+.home .container .sidebar .loan .btn {
+  color: #000;
+  transition: all 0.2s;
+}
+
+.home .container .sidebar .loan .btn:hover {
+  transform: scale(1.1);
+}
+
+.home .container .sidebar .loan.dark .btn {
+  color: #fff;
+}
+
+/* CLOSE ACCOUNT SECTION */
+
 .home .container .sidebar .close {
-  background-color: #90323d;
+  background-color: #b88c9e;
   border-radius: 1rem;
   padding: 3rem 4rem;
+  color: #000;
+}
+
+.home .container .sidebar .close.dark {
+  background-color: #704c5e;
+  color: #fff;
+}
+
+.home .container .sidebar .close .btn {
+  color: #000;
+  transition: all 0.2s;
+}
+
+.home .container .sidebar .close .btn:hover {
+  transform: scale(1.1);
+}
+
+.home .container .sidebar .close.dark .btn {
+  color: #fff;
 }
 
 .sidebar form label {
@@ -77,7 +150,7 @@
 }
 
 .transactions .name {
-  color: #777;
+  color: #000;
   font-size: 1.4em;
 }
 .transactions .amount {
@@ -102,6 +175,15 @@
   cursor: pointer;
 }
 
+.transactions img {
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.transactions img:hover {
+  transform: scale(1.2);
+}
+
 .account-balance {
   margin: 4rem;
 }
@@ -111,8 +193,16 @@
   align-items: center;
   justify-content: space-between;
 }
-
+.balance-container {
+  color: #000;
+}
+.balance-container.dark {
+  color: #fff;
+}
 .balance-container .amount {
   font-size: 3.2rem;
+  font-weight: bold;
+}
+.balance-container .title {
   font-weight: bold;
 }

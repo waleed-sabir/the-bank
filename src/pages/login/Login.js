@@ -3,11 +3,14 @@ import "./Login.css";
 
 import React, { useState } from "react";
 import { useLogin } from "../../hooks/useLogin";
+import { useTheme } from "../../hooks/useTheme";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login, isPending, error } = useLogin();
+
+  const { mode, color } = useTheme();
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -15,7 +18,11 @@ export default function Login() {
   };
 
   return (
-    <form className="login-form" onSubmit={submitHandler}>
+    <form
+      className={`login-form ${mode}`}
+      style={{ backgroundColor: color }}
+      onSubmit={submitHandler}
+    >
       <h2>Login</h2>
       <label>
         <span>Email:</span>

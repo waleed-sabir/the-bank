@@ -3,12 +3,14 @@ import "./Signup.css";
 
 import React, { useState } from "react";
 import { useSignup } from "../../hooks/useSignup";
+import { useTheme } from "../../hooks/useTheme";
 
 export default function Signup() {
   const [name, setName] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { mode, color } = useTheme();
 
   const { error, isPending, signup } = useSignup();
 
@@ -18,7 +20,11 @@ export default function Signup() {
   };
 
   return (
-    <form className="register-form" onSubmit={submitHandler}>
+    <form
+      className={`signup-form ${mode}`}
+      style={{ backgroundColor: color }}
+      onSubmit={submitHandler}
+    >
       <h2>Signup</h2>
       <label>
         <span>Name:</span>
@@ -26,6 +32,7 @@ export default function Signup() {
           type="text"
           onChange={(e) => setName(e.target.value)}
           value={name}
+          placeholder=" e.g. Walter White"
         />
       </label>
 
@@ -35,6 +42,7 @@ export default function Signup() {
           type="text"
           onChange={(e) => setDisplayName(e.target.value)}
           value={displayName}
+          placeholder="e.g. Walter"
         />
       </label>
 
@@ -44,6 +52,7 @@ export default function Signup() {
           type="email"
           onChange={(e) => setEmail(e.target.value)}
           value={email}
+          placeholder="e.g. walter@thebank.org"
         />
       </label>
 
@@ -55,7 +64,7 @@ export default function Signup() {
           value={password}
         />
       </label>
-      {!isPending && <button className="btn register">Signup</button>}
+      {!isPending && <button className="btn signup">Signup</button>}
       {isPending && (
         <button className="btn loading" disabled>
           Loading...

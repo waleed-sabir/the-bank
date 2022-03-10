@@ -8,6 +8,7 @@
 
 .navbar span {
   font-size: 2rem;
+  color: #fff;
 }
 
 .navbar ul {
@@ -23,22 +24,22 @@
 }
 
 .navbar li.displayname {
-  font-size: 1.6rem;
+  color: #fff;
+  font-size: 1.7rem;
 }
 
 .navbar li button {
   font-size: 1.6rem;
-  padding: 1.2rem;
+  padding: 1rem;
   border-radius: 1rem;
-  background-color: #e4d6d6;
-  color: black;
+  color: #fff;
   transition: all 0.2s;
 }
 
 .navbar li button:hover {
-  background-color: #333;
-  color: antiquewhite;
+  transform: scale(1.1);
 }
+
 .navbar .logo {
   font-weight: bold;
 
@@ -51,11 +52,30 @@
 .navbar .logo img {
   margin-right: 0.8rem;
   width: 3rem;
+  fill: #fff;
 }
 
 .navbar a {
   font-size: 1.6rem;
-  color: #333;
+  color: #fff;
   text-decoration: none;
   margin-right: 20px;
+  position: relative;
+}
+
+.navbar a::after {
+  content: "";
+  display: block;
+  background-color: #fff;
+  position: absolute;
+  height: 3px;
+  width: 0;
+  left: 0;
+  bottom: -5px;
+
+  transition: all 0.2s;
+}
+
+.navbar a:hover::after {
+  width: 100%;
 }

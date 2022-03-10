@@ -2,8 +2,13 @@
 import "./Home.css";
 import React from "react";
 import { useFirestore } from "../../hooks/useFirestore";
+import { useAuthContext } from "../../hooks/useAuthContext";
+import trashcan from "../../assets/trashcan.svg";
+import { useTheme } from "../../hooks/useTheme";
 
 export default function TransactionList({ transactions }) {
+  const { user } = useAuthContext();
+  const { color } = useTheme();
   const { deleteDocument, response } = useFirestore("transactions");
   console.log(response);
   return (
@@ -12,19 +17,32 @@ export default function TransactionList({ transactions }) {
         <li
           key={transaction.id}
           style={{
-            borderLeft: transaction.loanAmount
-              ? "4px solid #1f9751"
-              : "4px solid #ff0000",
+            borderLeft: transaction.transferAmount
+              ? "4px solid #ff0000"
+              : "4px solid #1f9751",
           }}
         >
-          <p className="name">{transaction.displayName}</p>
+          <p className="name">
+            {transaction.transferAmount ? "WITHDRAWL" : "DEPOSIT"}
+          </p>
           <p
             className="amount"
-            style={{ color: transaction.loanAmount ? "#1f9751" : "#ff0000" }}
+            style={{
+              color: transaction.transferAmount ? "#ff0000" : "#1f9751",
+            }}
           >
-            ${transaction.loanAmount || transaction.transferAmount}
+            $
+            {transaction.loanAmount ||
+              transaction.transferAmount ||
+              transaction.transferredAmount}
           </p>
-          <button onClick={() => deleteDocument(transaction.id)}>x</button>
+          {/* <button>x</button> */}
+          <img
+            className="del-btn"
+            src={trashcan}
+            alt="Delete icon"
+            onClick={() => deleteDocument(transaction.id)}
+          />
         </li>
       ))}
     </ul>

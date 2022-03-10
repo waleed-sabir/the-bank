@@ -10,16 +10,16 @@ import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
 
 export default function Navbar() {
-  const { color } = useTheme();
+  const { mode, color } = useTheme();
   const { logout } = useLogout();
   const { user } = useAuthContext();
 
   return (
-    <div className="navbar" style={{ background: color }}>
+    <div className={`navbar ${mode}`} style={{ background: color }}>
       <ul>
         <li className="logo">
           <img src={bankIcon} alt="bank logo" />
-          <span>theBank</span>
+          <span>TheBank</span>
         </li>
 
         {!user && (

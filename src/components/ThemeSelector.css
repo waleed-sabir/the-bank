@@ -5,6 +5,13 @@
   max-width: 1200px;
   margin: 20px auto;
 }
+
+.theme-selector img {
+  transition: all 0.2s;
+}
+.theme-selector img:hover {
+  transform: scale(1.1);
+}
 .theme-buttons div {
   display: inline-block;
   width: 20px;
@@ -12,6 +19,11 @@
   cursor: pointer;
   margin-left: 15px;
   border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.theme-buttons div:hover {
+  transform: scale(1.2);
 }
 
 .mode-toggle {
