@@ -5,6 +5,7 @@
   padding: 2.8rem;
   border-radius: 1rem;
   color: #fff;
+  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.406);
 }
 
 .login-form label {

@@ -1,0 +1,32 @@
+.demo {
+  /* background-color: tomato; */
+  margin: 3rem;
+  padding: 2rem;
+  color: #000;
+}
+
+.demo.dark {
+  color: #fff;
+}
+
+.demo-text {
+  margin: 1.5rem 0;
+
+  font-size: 1.6rem;
+}
+
+.demo .warning {
+  color: red;
+}
+
+.demo button {
+  padding: 1.5rem;
+  color: #fff;
+  font-size: 1.6rem;
+  transition: all 0.2s;
+  /* transform: translateX(50%); */
+}
+
+.demo button:hover {
+  transform: scale(1.1);
+}

@@ -27,7 +27,7 @@ export default function Signup() {
     >
       <h2>Signup</h2>
       <label>
-        <span>Name:</span>
+        <span>Full Name:</span>
         <input
           type="text"
           onChange={(e) => setName(e.target.value)}

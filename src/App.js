@@ -10,6 +10,7 @@ import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import Navbar from "./components/Navbar";
 import ThemeSelector from "./components/ThemeSelector";
+import Demo from "./pages/Demo/Demo";
 
 import { useTheme } from "./hooks/useTheme";
 
@@ -30,6 +31,7 @@ function App() {
             />
             <Route path="/login" element={user ? <Home /> : <Login />} />
             <Route path="/signup" element={user ? <Home /> : <Signup />} />
+            <Route path="/demo" element={user ? <Home /> : <Demo />} />
           </Routes>
         </BrowserRouter>
       )}

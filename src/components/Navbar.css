@@ -4,6 +4,7 @@
   background-color: antiquewhite;
   box-sizing: border-box;
   /* margin-bottom: 80px; */
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.153);
 }
 
 .navbar span {

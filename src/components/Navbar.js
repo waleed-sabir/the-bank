@@ -31,6 +31,10 @@ export default function Navbar() {
             <li>
               <Link to="/signup">Signup</Link>
             </li>
+
+            <li>
+              <Link to="/demo">Demo</Link>
+            </li>
           </>
         )}
 
