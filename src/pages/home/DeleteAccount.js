@@ -14,7 +14,8 @@ export default function DeleteAccount({ uid, displayName }) {
 
   const { documents: users } = useCollection("users");
   const { documents: transactions } = useCollection("transactions");
-  const { deleteDocument: delUserDoc, response } = useFirestore("users");
+  const { deleteDocument: delUserDoc, response: resUserDoc } =
+    useFirestore("users");
   const { deleteDocument: delTransDoc, response: resTransDoc } =
     useFirestore("transactions");
 
@@ -45,16 +46,19 @@ export default function DeleteAccount({ uid, displayName }) {
 
     try {
       if (userLoggedInEmail === confirmEmail) {
+        await userTransactions.map((ut) => {
+          delTransDoc(ut.id);
+          console.log(resTransDoc);
+          console.log("user transactions deleted");
+        });
+
+        await delUserDoc(userLoggedInId);
+        console.log(resUserDoc);
+        console.log("user deleted from users collection");
+
         await deleteUser(user);
         console.log("user deleted");
 
-        await delUserDoc(userLoggedInId);
-        console.log("user deleted from users collection");
-
-        await userTransactions.map((ut) => {
-          delTransDoc(ut.id);
-          console.log("user transactions deleted");
-        });
         logout();
       }
     } catch (err) {
@@ -71,10 +75,10 @@ export default function DeleteAccount({ uid, displayName }) {
   // };
 
   useEffect(() => {
-    if (response.success) {
+    if (resUserDoc.success && resTransDoc.success) {
       setConfirmEmail("");
     }
-  }, [response.success]);
+  }, [resUserDoc.success, resTransDoc.success]);
 
   return (
     <>

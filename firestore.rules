@@ -1,0 +1,21 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{user} {
+      // only authenticated users can read and create
+      allow read, create, update: if request.auth != null && request.auth.token.firebase.sign_in_provider != 'anonymous';
+
+      // only users who 'own/created' a document can delete it (user id's match)
+      allow delete: if request.auth.uid == resource.data.uid;
+          
+    }
+
+    match /transactions/{transaction} {
+      // only authenticated users can read and create
+      allow read, create: if request.auth != null && request.auth.token.firebase.sign_in_provider != 'anonymous';
+      
+      // only users who 'own/created' a document can update or delete a transaction (user id's match)
+      allow update, delete: if request.auth.uid == resource.data.uid;
+    }
+  }
+}
