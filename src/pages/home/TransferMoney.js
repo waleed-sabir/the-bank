@@ -10,6 +10,9 @@ import { useTheme } from "../../hooks/useTheme";
 // Icon
 import helpIcon from "../../assets/help.svg";
 
+// page components
+import Modal from "../../components/Modal";
+
 // Tippy
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
@@ -17,6 +20,8 @@ import "tippy.js/dist/tippy.css";
 export default function TransferMoney({ uid, displayName, email }) {
   const [transferTo, setTrasnferTo] = useState("");
   const [transferAmount, setTransferAmount] = useState("");
+  const [showModal, setShowModal] = useState(false);
+
   const { documents: users, error } = useCollection("users");
   const { documents: transactions, error: err } = useCollection("transactions");
   const { user } = useAuthContext();
@@ -113,6 +118,7 @@ export default function TransferMoney({ uid, displayName, email }) {
     if (response.success) {
       setTrasnferTo("");
       setTransferAmount("");
+      setShowModal(false);
     }
   }, [response.success]);
 
@@ -126,7 +132,7 @@ export default function TransferMoney({ uid, displayName, email }) {
             <img src={helpIcon} alt="help icon" />
           </Tippy>
         </h3>
-        <form onSubmit={handleTransfer}>
+        <form>
           <label>
             <span>
               Transfer to:
@@ -157,8 +163,34 @@ export default function TransferMoney({ uid, displayName, email }) {
               value={transferAmount}
             />
           </label>
-          <button className="btn">Transfer</button>
+          <button
+            className="btn transfer"
+            onClick={(e) => {
+              e.preventDefault();
+              if (transferTo !== "" && transferAmount !== "") {
+                setShowModal(true);
+              } else {
+                throw new Error("Please fill in the required fields");
+              }
+            }}
+          >
+            Transfer
+          </button>
         </form>
+        {showModal && (
+          <Modal>
+            <h2>Confirm action</h2>
+            <p>Are you sure you want to proceed with this action?</p>
+            <div className="butn-container">
+              <button className="butn yes" onClick={handleTransfer}>
+                YES
+              </button>
+              <button className="butn no" onClick={() => setShowModal(false)}>
+                NO
+              </button>
+            </div>
+          </Modal>
+        )}
       </div>
     </>
   );

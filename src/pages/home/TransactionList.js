@@ -18,6 +18,7 @@ export default function TransactionList({ transactions }) {
 
   return (
     <ul className="transactions">
+      <p className="list-title">Transaction List</p>
       {transactions.map((transaction) => (
         <li
           key={transaction.id}

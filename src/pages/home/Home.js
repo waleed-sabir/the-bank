@@ -1,7 +1,7 @@
 // styles
 import "./Home.css";
 
-import React from "react";
+import React, { useState } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useCollection } from "../../hooks/useCollection";
 import { useTheme } from "../../hooks/useTheme";

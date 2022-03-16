@@ -12,12 +12,16 @@ import { useTheme } from "../../hooks/useTheme";
 // Icon
 import helpIcon from "../../assets/help.svg";
 
+// page components
+import Modal from "../../components/Modal";
+
 // Tippy
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 
 export default function DeleteAccount({ uid, displayName }) {
   const [confirmEmail, setConfirmEmail] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   const { documents: users } = useCollection("users");
   const { documents: transactions } = useCollection("transactions");
@@ -84,6 +88,7 @@ export default function DeleteAccount({ uid, displayName }) {
   useEffect(() => {
     if (resUserDoc.success && resTransDoc.success) {
       setConfirmEmail("");
+      setShowModal(false);
     }
   }, [resUserDoc.success, resTransDoc.success]);
 
@@ -115,10 +120,34 @@ export default function DeleteAccount({ uid, displayName }) {
             />
           </label>
 
-          <button className="btn delete" onClick={handleDeleteAccount}>
+          <button
+            className="btn delete"
+            onClick={(e) => {
+              e.preventDefault();
+              if (confirmEmail !== "") {
+                setShowModal(true);
+              } else {
+                throw new Error("Please enter an email address");
+              }
+            }}
+          >
             Close account
           </button>
         </form>
+        {showModal && (
+          <Modal>
+            <h2>Confirm action</h2>
+            <p>Are you sure you want to proceed with this action?</p>
+            <div className="butn-container">
+              <button className="butn yes" onClick={handleDeleteAccount}>
+                YES
+              </button>
+              <button className="butn no" onClick={() => setShowModal(false)}>
+                NO
+              </button>
+            </div>
+          </Modal>
+        )}
       </div>
     </>
   );

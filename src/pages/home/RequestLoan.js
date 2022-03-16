@@ -14,8 +14,12 @@ import helpIcon from "../../assets/help.svg";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 
+// page components
+import Modal from "../../components/Modal";
+
 export default function RequestLoan({ uid, displayName }) {
   const [loanAmount, setLoanAmount] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   const { documents: users, error } = useCollection("users");
   const { updateDocument, response: updateDocRes } = useFirestore("users");
@@ -51,6 +55,7 @@ export default function RequestLoan({ uid, displayName }) {
   useEffect(() => {
     if (response.success) {
       setLoanAmount("");
+      setShowModal(false);
     }
   }, [response.success]);
 
@@ -64,7 +69,7 @@ export default function RequestLoan({ uid, displayName }) {
             <img src={helpIcon} alt="help icon" />
           </Tippy>
         </h3>
-        <form onSubmit={handleRequestLoan}>
+        <form>
           <label>
             <span>
               Amount $:
@@ -80,8 +85,34 @@ export default function RequestLoan({ uid, displayName }) {
               value={loanAmount}
             />
           </label>
-          <button className="btn">Request</button>
+          <button
+            className="btn request"
+            onClick={(e) => {
+              e.preventDefault();
+              if (loanAmount !== "") {
+                setShowModal(true);
+              } else {
+                throw new Error("Please enter an amount");
+              }
+            }}
+          >
+            Request
+          </button>
         </form>
+        {showModal && (
+          <Modal>
+            <h2>Confirm action</h2>
+            <p>Are you sure you want to proceed with this action?</p>
+            <div className="butn-container">
+              <button className="butn yes" onClick={handleRequestLoan}>
+                YES
+              </button>
+              <button className="butn no" onClick={() => setShowModal(false)}>
+                NO
+              </button>
+            </div>
+          </Modal>
+        )}
       </div>
     </>
   );

@@ -277,7 +277,7 @@
 }
 .sidebar form input {
   padding: 8px 6px;
-  color: #777;
+  color: #1a1a1a;
   width: 97%;
 }
 
@@ -299,6 +299,12 @@
   position: relative;
   overflow: hidden;
   border-left: 4px solid #1f9751;
+}
+
+.transactions .list-title {
+  color: #000;
+  font-weight: bold;
+  text-align: center;
 }
 
 .transactions .name {
