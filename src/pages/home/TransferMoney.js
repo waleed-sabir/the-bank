@@ -7,6 +7,13 @@ import { useCollection } from "../../hooks/useCollection";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useTheme } from "../../hooks/useTheme";
 
+// Icon
+import helpIcon from "../../assets/help.svg";
+
+// Tippy
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
+
 export default function TransferMoney({ uid, displayName, email }) {
   const [transferTo, setTrasnferTo] = useState("");
   const [transferAmount, setTransferAmount] = useState("");
@@ -14,6 +21,8 @@ export default function TransferMoney({ uid, displayName, email }) {
   const { documents: transactions, error: err } = useCollection("transactions");
   const { user } = useAuthContext();
   const { mode } = useTheme();
+
+  const [allUsers, setAllUsers] = useState([]);
 
   const { addDocument, response } = useFirestore("transactions");
   //   const { addDocument: addRecvDoc } = useFirestore("transactions");
@@ -111,20 +120,39 @@ export default function TransferMoney({ uid, displayName, email }) {
     <>
       {/* TRANSFER MONEY */}
       <div className={`money ${mode}`}>
-        <h3>Transfer money</h3>
+        <h3>
+          Transfer Money{" "}
+          <Tippy content="Transfer money to other existing users' accounts">
+            <img src={helpIcon} alt="help icon" />
+          </Tippy>
+        </h3>
         <form onSubmit={handleTransfer}>
           <label>
-            <span>Transfer to:</span>
+            <span>
+              Transfer to:
+              <Tippy content="Enter recipient's email address">
+                <img src={helpIcon} alt="help icon" />
+              </Tippy>
+            </span>
             <input
               type="email"
+              placeholder="e.g. mario@thebank.org"
+              required
               onChange={(e) => setTrasnferTo(e.target.value)}
               value={transferTo}
             />
           </label>
           <label>
-            <span>Amount $:</span>
+            <span>
+              Amount $:
+              <Tippy content="Enter amount to be transferred. Entered amount should be less than 50% of the logged in user's account balance">
+                <img src={helpIcon} alt="help icon" />
+              </Tippy>
+            </span>
             <input
-              type="text"
+              type="number"
+              required
+              placeholder="e.g. 100"
               onChange={(e) => setTransferAmount(e.target.value)}
               value={transferAmount}
             />

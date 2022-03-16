@@ -1,6 +1,6 @@
 .App {
   background-color: #e3e3e3;
-  min-height: 100vmax;
+  min-height: 100vh;
 }
 .App.dark {
   background: #333;

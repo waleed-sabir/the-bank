@@ -1,8 +1,11 @@
 .demo {
-  /* background-color: tomato; */
   margin: 3rem;
   padding: 2rem;
   color: #000;
+}
+
+.demo h2 {
+  font-size: 2rem;
 }
 
 .demo.dark {
@@ -11,12 +14,7 @@
 
 .demo-text {
   margin: 1.5rem 0;
-
   font-size: 1.6rem;
-}
-
-.demo .warning {
-  color: red;
 }
 
 .demo button {
@@ -24,7 +22,6 @@
   color: #fff;
   font-size: 1.6rem;
   transition: all 0.2s;
-  /* transform: translateX(50%); */
 }
 
 .demo button:hover {

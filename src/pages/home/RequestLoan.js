@@ -7,6 +7,13 @@ import { useCollection } from "../../hooks/useCollection";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useTheme } from "../../hooks/useTheme";
 
+// Icon
+import helpIcon from "../../assets/help.svg";
+
+// Tippy
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
+
 export default function RequestLoan({ uid, displayName }) {
   const [loanAmount, setLoanAmount] = useState("");
 
@@ -51,12 +58,24 @@ export default function RequestLoan({ uid, displayName }) {
     <>
       {/* REQUEST LOAN */}
       <div className={`loan ${mode}`}>
-        <h3>Request loan</h3>
+        <h3>
+          Request Loan{" "}
+          <Tippy content="Request loan to logged in user's account">
+            <img src={helpIcon} alt="help icon" />
+          </Tippy>
+        </h3>
         <form onSubmit={handleRequestLoan}>
           <label>
-            <span>Amount $:</span>
+            <span>
+              Amount $:
+              <Tippy content="Enter loan amount. Entered amount should be less than 10% of the logged in user's account balance">
+                <img src={helpIcon} alt="help icon" />
+              </Tippy>
+            </span>
             <input
               type="number"
+              required
+              placeholder="e.g. 200"
               onChange={(e) => setLoanAmount(e.target.value)}
               value={loanAmount}
             />

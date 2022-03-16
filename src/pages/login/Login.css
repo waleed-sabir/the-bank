@@ -8,6 +8,24 @@
   box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.406);
 }
 
+@media (max-width: 425px) {
+  .login-form {
+    margin: 6rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .login-form {
+    margin: 6rem 4rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .login-form {
+    margin: 6rem 2rem;
+  }
+}
+
 .login-form label {
   display: block;
   text-align: left;

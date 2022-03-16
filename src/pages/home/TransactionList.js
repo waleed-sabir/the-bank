@@ -10,7 +10,12 @@ export default function TransactionList({ transactions }) {
   const { user } = useAuthContext();
   const { color } = useTheme();
   const { deleteDocument, response } = useFirestore("transactions");
-  console.log(response);
+  console.log(transactions);
+
+  if (transactions.length === 0) {
+    return <h2 className="no-transactions">No transactions yet...</h2>;
+  }
+
   return (
     <ul className="transactions">
       {transactions.map((transaction) => (
@@ -36,7 +41,7 @@ export default function TransactionList({ transactions }) {
               transaction.transferAmount ||
               transaction.transferredAmount}
           </p>
-          {/* <button>x</button> */}
+
           <img
             className="del-btn"
             src={trashcan}

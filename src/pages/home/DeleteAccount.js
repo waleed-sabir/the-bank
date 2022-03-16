@@ -9,6 +9,13 @@ import { useLogout } from "../../hooks/useLogout";
 import { deleteUser } from "@firebase/auth";
 import { useTheme } from "../../hooks/useTheme";
 
+// Icon
+import helpIcon from "../../assets/help.svg";
+
+// Tippy
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
+
 export default function DeleteAccount({ uid, displayName }) {
   const [confirmEmail, setConfirmEmail] = useState("");
 
@@ -84,19 +91,32 @@ export default function DeleteAccount({ uid, displayName }) {
     <>
       {/* DELETE ACCOUNT */}
       <div className={`close ${mode}`}>
-        <h3>Close account</h3>
+        <h3>
+          Close Account{" "}
+          <Tippy content="Delete user account and transactions of the logged in user">
+            <img src={helpIcon} alt="help icon" />
+          </Tippy>
+        </h3>
+
         <form>
           <label>
-            <span>Confirm email:</span>
+            <span>
+              Email address:
+              <Tippy content="Enter your email address">
+                <img src={helpIcon} alt="help icon" />
+              </Tippy>
+            </span>
             <input
               type="email"
+              required
+              placeholder="e.g. username@thebank.org"
               onChange={(e) => setConfirmEmail(e.target.value)}
               value={confirmEmail}
             />
           </label>
 
           <button className="btn delete" onClick={handleDeleteAccount}>
-            Delete
+            Close account
           </button>
         </form>
       </div>

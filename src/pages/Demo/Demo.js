@@ -15,9 +15,12 @@ export default function Demo() {
     <div className={`demo ${mode}`}>
       <h2>Sign in as an Anonymous User</h2>
       <p className="demo-text">
-        You can test the app as an anonymous user. Anonymous users can browse
-        all the sections of the website and view its functionality. However,
-        they cannnot add, delete, or update data.
+        You can test the app as an anonymous user. Anonymous users can visit the
+        website and view its functionality. However, they can only use the{" "}
+        <strong style={{ color: color }}>Transfer Money</strong> and{" "}
+        <strong style={{ color: color }}>Request Loan</strong> feature but are
+        not allowed to use the{" "}
+        <strong style={{ color: color }}> Close Account</strong> feature.
       </p>
       {!isPending && (
         <button

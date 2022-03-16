@@ -1,13 +1,49 @@
 .home {
-  margin: 2rem 4rem;
+  margin: 3rem 6rem;
   text-align: left;
   color: #ffffff;
+}
+
+@media (max-width: 1200px) {
+  .home {
+    margin: 2rem 4rem;
+  }
+}
+
+@media (max-width: 1000px) {
+  .home {
+    margin: 1rem 2rem;
+  }
+}
+
+@media (max-width: 800px) {
+  .home {
+    margin: 1rem 4rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .home {
+    margin: 1rem 2rem;
+  }
+}
+
+@media (max-width: 425px) {
+  .home {
+    margin: 1rem;
+  }
 }
 
 .home h1 {
   color: #000;
   font-size: 2.4rem;
   text-align: center;
+}
+
+@media (max-width: 320px) {
+  .home h1 {
+    font-size: 2rem;
+  }
 }
 
 .home.dark h1 {
@@ -18,6 +54,24 @@
   font-size: 2.4rem;
 }
 
+.home .default-user {
+  color: #000;
+  font-size: 1.8rem;
+}
+
+.home.dark .default-user {
+  color: #fff;
+}
+
+.home .del-anonymous {
+  color: #000;
+  font-size: 1.8rem;
+}
+
+.home.dark .del-anonymous {
+  color: #fff;
+}
+
 .home .container {
   display: grid;
   grid-template-columns: 3fr 2fr;
@@ -25,17 +79,107 @@
   margin: 4rem;
 }
 
+@media (max-width: 800px) {
+  .home .container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .home .container {
+    margin: 3rem;
+  }
+}
+
+@media (max-width: 425px) {
+  .home .container {
+    margin: 2rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .home .container {
+    margin: 1rem;
+  }
+}
+
 .home .container .list {
   border-radius: 1rem;
   padding: 3rem 4rem;
-  background-color: #ffffff;
+  background-color: #fff;
+  margin-bottom: 5rem;
+}
+
+@media (max-width: 425px) {
+  .home .container .list {
+    padding: 3rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .home .container .list {
+    padding: 2rem;
+  }
 }
 
 .home .container .sidebar {
   display: flex;
   flex-direction: column;
   gap: 3rem;
-  /* background-color: red; */
+  margin-bottom: 5rem;
+}
+
+@media (max-width: 800px) {
+  .home .container .sidebar {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin: 0 10rem;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .home .container .sidebar {
+    margin: 0 4rem;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 425px) {
+  .home .container .sidebar {
+    margin: 0 1rem;
+    gap: 2rem;
+  }
+}
+
+.home .container .sidebar h3 {
+  display: flex;
+  gap: 1rem;
+  font-size: 2rem;
+}
+
+.home.dark .container .sidebar h3 img {
+  filter: invert(100%);
+}
+
+.home .container .sidebar span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.6rem;
+}
+
+.home .container .sidebar span img {
+  width: 1.8rem;
+}
+
+.home.dark .container .sidebar span img {
+  width: 1.8rem;
+  filter: invert(100%);
+}
+
+.home .container .sidebar input::-webkit-input-placeholder {
+  font-size: 1.6rem;
 }
 
 /* TRANSFER MONEY SECTION */
@@ -137,6 +281,14 @@
   width: 97%;
 }
 
+/* TRANSACTIONS LIST */
+
+.no-transactions {
+  font-size: 2.4rem;
+  color: #000;
+  text-align: center;
+}
+
 .transactions li {
   margin: 30px auto;
   border: 1px solid #f2f2f2;
@@ -155,10 +307,16 @@
 }
 .transactions .amount {
   margin-left: auto;
-  margin-right: 40px;
+  margin-right: 4rem;
   color: #1f9751;
   font-weight: bold;
   font-size: 1.6em;
+}
+
+@media (max-width: 425px) {
+  .transactions .amount {
+    margin-right: 3rem;
+  }
 }
 
 .transactions button {
@@ -188,21 +346,49 @@
   margin: 4rem;
 }
 
+@media (max-width: 425px) {
+  .account-balance {
+    margin: 4rem 2rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .account-balance {
+    margin: 4rem 1rem;
+  }
+}
+
 .account-balance .balance-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
+
 .balance-container {
   color: #000;
 }
+
 .balance-container.dark {
   color: #fff;
 }
+
 .balance-container .amount {
   font-size: 3.2rem;
   font-weight: bold;
 }
+
+@media (max-width: 320px) {
+  .balance-container .amount {
+    font-size: 2.8rem;
+  }
+}
+
 .balance-container .title {
   font-weight: bold;
+}
+
+@media (max-width: 320px) {
+  .balance-container .title {
+    font-size: 2rem;
+  }
 }

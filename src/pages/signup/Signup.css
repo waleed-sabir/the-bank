@@ -5,6 +5,24 @@
   border-radius: 1rem;
   color: #fff;
 }
+
+@media (max-width: 425px) {
+  .signup-form {
+    margin: 6rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .signup-form {
+    margin: 6rem 4rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .signup-form {
+    margin: 6rem 2rem;
+  }
+}
 .signup-form label {
   display: block;
   text-align: left;
