@@ -9,6 +9,7 @@ import { useTheme } from "../../hooks/useTheme";
 
 // Icon
 import helpIcon from "../../assets/help.svg";
+import closeIcon from "../../assets/close.svg";
 
 // page components
 import Modal from "../../components/Modal";
@@ -25,12 +26,9 @@ export default function TransferMoney({ uid, displayName, email }) {
   const { documents: users, error } = useCollection("users");
   const { documents: transactions, error: err } = useCollection("transactions");
   const { user } = useAuthContext();
-  const { mode } = useTheme();
-
-  const [allUsers, setAllUsers] = useState([]);
+  const { mode, color } = useTheme();
 
   const { addDocument, response } = useFirestore("transactions");
-  //   const { addDocument: addRecvDoc } = useFirestore("transactions");
   const { updateDocument, response: updateDocRes } = useFirestore("users");
 
   const handleTransfer = (e) => {
@@ -82,21 +80,13 @@ export default function TransferMoney({ uid, displayName, email }) {
         u.email !== transferObj.transferredBy
     );
     const receiverUpdatedBalance = receiverDoc[0].balance + +transferAmount;
-    // const transferredAmount = +transferObj.transferAmount;
+
     updateDocument(receiverDoc[0].id, {
       balance: receiverUpdatedBalance,
-      //   amountReceived: transferredAmount,
     });
     console.log(receiverDoc);
 
     //   adding the transferred amount in RECEIVER's 'transactions' collection
-
-    // const recvDoc = transactions.filter(
-    //   (t) => t.transferTo === transferObj.transferTo
-    // );
-    // const transferredAmount = +transferObj.transferAmount;
-    // console.log(recvDoc);
-
     const recvDoc = users.filter(
       (u) =>
         u.email === transferObj.transferTo &&
@@ -115,11 +105,25 @@ export default function TransferMoney({ uid, displayName, email }) {
   };
 
   useEffect(() => {
+    const hideModal = (e) => {
+      if (e.path[0].className === "modal-backdrop" || e.key === "Escape") {
+        setShowModal(false);
+      }
+    };
+
+    document.body.addEventListener("click", hideModal);
+    document.body.addEventListener("keydown", hideModal);
+
     if (response.success) {
       setTrasnferTo("");
       setTransferAmount("");
       setShowModal(false);
     }
+
+    return () => {
+      document.body.removeEventListener("click", hideModal);
+      document.body.removeEventListener("keydown", hideModal);
+    };
   }, [response.success]);
 
   return (
@@ -179,8 +183,19 @@ export default function TransferMoney({ uid, displayName, email }) {
         </form>
         {showModal && (
           <Modal>
-            <h2>Confirm action</h2>
-            <p>Are you sure you want to proceed with this action?</p>
+            <h2>
+              Confirm action{" "}
+              <img
+                src={closeIcon}
+                alt="close icon"
+                onClick={() => setShowModal(false)}
+              />
+            </h2>
+            <p>
+              Are you sure to transfer{" "}
+              <strong style={{ color: color }}>${transferAmount}</strong> to{" "}
+              <strong style={{ color: color }}>{transferTo}</strong>?
+            </p>
             <div className="butn-container">
               <button className="butn yes" onClick={handleTransfer}>
                 YES

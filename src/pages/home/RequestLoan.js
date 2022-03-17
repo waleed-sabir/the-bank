@@ -9,6 +9,7 @@ import { useTheme } from "../../hooks/useTheme";
 
 // Icon
 import helpIcon from "../../assets/help.svg";
+import closeIcon from "../../assets/close.svg";
 
 // Tippy
 import Tippy from "@tippyjs/react";
@@ -24,7 +25,7 @@ export default function RequestLoan({ uid, displayName }) {
   const { documents: users, error } = useCollection("users");
   const { updateDocument, response: updateDocRes } = useFirestore("users");
   const { user } = useAuthContext();
-  const { mode } = useTheme();
+  const { mode, color } = useTheme();
   const { addDocument, response } = useFirestore("transactions");
 
   const handleRequestLoan = (e) => {
@@ -53,10 +54,24 @@ export default function RequestLoan({ uid, displayName }) {
   };
 
   useEffect(() => {
+    const hideModal = (e) => {
+      if (e.path[0].className === "modal-backdrop" || e.key === "Escape") {
+        setShowModal(false);
+      }
+    };
+
+    document.body.addEventListener("click", hideModal);
+    document.body.addEventListener("keydown", hideModal);
+
     if (response.success) {
       setLoanAmount("");
       setShowModal(false);
     }
+
+    return () => {
+      document.body.removeEventListener("click", hideModal);
+      document.body.removeEventListener("keydown", hideModal);
+    };
   }, [response.success]);
 
   return (
@@ -101,8 +116,19 @@ export default function RequestLoan({ uid, displayName }) {
         </form>
         {showModal && (
           <Modal>
-            <h2>Confirm action</h2>
-            <p>Are you sure you want to proceed with this action?</p>
+            <h2>
+              Confirm action{" "}
+              <img
+                src={closeIcon}
+                alt="close icon"
+                onClick={() => setShowModal(false)}
+              />
+            </h2>
+            <p>
+              Are you sure to request a loan of{" "}
+              <strong style={{ color: color }}>${loanAmount}</strong> from the
+              bank?
+            </p>
             <div className="butn-container">
               <button className="butn yes" onClick={handleRequestLoan}>
                 YES

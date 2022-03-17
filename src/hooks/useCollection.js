@@ -38,22 +38,6 @@ export const useCollection = (clt, _q) => {
       }
     );
 
-    // const unsubscribe = getDocs(colRef)
-    //   .then((snapshot) => {
-    //     let results = [];
-    //     snapshot.docs.forEach((doc) => {
-    //       results.push({ ...doc.data(), id: doc.id });
-    //     });
-
-    //     // update state
-    //     setDocuments(results);
-    //     setError(null);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     setError(err.message);
-    //   });
-
     //   unsubscribe on unmount
     return () => unsubscribe();
   }, [clt, q]);

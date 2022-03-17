@@ -1,7 +1,7 @@
 // styles
 import "./Home.css";
 
-import React, { useState } from "react";
+import React from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useCollection } from "../../hooks/useCollection";
 import { useTheme } from "../../hooks/useTheme";
@@ -10,7 +10,6 @@ import { useTheme } from "../../hooks/useTheme";
 import TransferMoney from "./TransferMoney";
 import RequestLoan from "./RequestLoan";
 import DeleteAccount from "./DeleteAccount";
-// import TransactionOperations from "./TransactionOperations";
 import TransactionList from "./TransactionList";
 import AccountBalance from "./AccountBalance";
 

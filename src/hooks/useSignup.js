@@ -8,8 +8,6 @@ import {
 import { useAuthContext } from "./useAuthContext";
 import { useFirestore } from "./useFirestore";
 
-// import { doc, setDoc, collection } from "firebase/firestore";
-
 export const useSignup = () => {
   const [isCancelled, setIsCancelled] = useState(false);
   const [error, setError] = useState(null);
@@ -35,8 +33,7 @@ export const useSignup = () => {
       await updateProfile(res.user, { displayName });
 
       // create a user document
-      // const colRef = doc(collection(db, "users"));
-      // await setDoc(colRef, { uid: res.user.uid, displayName });
+
       addDocument({
         uid: res.user.uid,
         displayName,
@@ -80,8 +77,7 @@ export const useSignup = () => {
       await updateProfile(response.user, { displayName: "Anonymous user" });
 
       // create a user document
-      // const colRef = doc(collection(db, "users"));
-      // await setDoc(colRef, { uid: response.user.uid, displayName });
+
       addDocument({
         uid: response.user.uid,
         displayName: "Anonymous user",

@@ -11,6 +11,7 @@ import { useTheme } from "../../hooks/useTheme";
 
 // Icon
 import helpIcon from "../../assets/help.svg";
+import closeIcon from "../../assets/close.svg";
 
 // page components
 import Modal from "../../components/Modal";
@@ -33,7 +34,7 @@ export default function DeleteAccount({ uid, displayName }) {
   const { logout } = useLogout();
 
   const { user } = useAuthContext();
-  const { mode } = useTheme();
+  const { mode, color } = useTheme();
 
   const handleDeleteAccount = async (e) => {
     e.preventDefault();
@@ -46,14 +47,6 @@ export default function DeleteAccount({ uid, displayName }) {
 
     // Logged in user's transactions
     const userTransactions = transactions.filter((t) => t.uid === user.uid);
-    // userTransactions.map((ut) => console.log(ut.id));
-
-    // console.log(
-    //   userLoggedIn,
-    //   userLoggedInId,
-    //   userLoggedInEmail,
-    //   userTransactions
-    // );
 
     try {
       if (userLoggedInEmail === confirmEmail) {
@@ -77,19 +70,25 @@ export default function DeleteAccount({ uid, displayName }) {
     }
   };
 
-  //   console.log(userLoggedIn, userLoggedInEmail, userLoggedInId, user);
-
-  //   if (userLoggedInEmail === confirmEmail) {
-  //     delUserDoc(userLoggedInId);
-  //     logout();
-  //   }
-  // };
-
   useEffect(() => {
+    const hideModal = (e) => {
+      if (e.path[0].className === "modal-backdrop" || e.key === "Escape") {
+        setShowModal(false);
+      }
+    };
+
+    document.body.addEventListener("click", hideModal);
+    document.body.addEventListener("keydown", hideModal);
+
     if (resUserDoc.success && resTransDoc.success) {
       setConfirmEmail("");
       setShowModal(false);
     }
+
+    return () => {
+      document.body.removeEventListener("click", hideModal);
+      document.body.removeEventListener("keydown", hideModal);
+    };
   }, [resUserDoc.success, resTransDoc.success]);
 
   return (
@@ -136,8 +135,18 @@ export default function DeleteAccount({ uid, displayName }) {
         </form>
         {showModal && (
           <Modal>
-            <h2>Confirm action</h2>
-            <p>Are you sure you want to proceed with this action?</p>
+            <h2>
+              Confirm action{" "}
+              <img
+                src={closeIcon}
+                alt="close icon"
+                onClick={() => setShowModal(false)}
+              />
+            </h2>
+            <p>
+              Are you sure to delete the account{" "}
+              <strong style={{ color: color }}>{confirmEmail}</strong>?
+            </p>
             <div className="butn-container">
               <button className="butn yes" onClick={handleDeleteAccount}>
                 YES
