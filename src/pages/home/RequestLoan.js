@@ -17,10 +17,12 @@ import "tippy.js/dist/tippy.css";
 
 // page components
 import Modal from "../../components/Modal";
+import ErrorModal from "../../components/ErrorModal";
 
 export default function RequestLoan({ uid, displayName }) {
   const [loanAmount, setLoanAmount] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [err, setErr] = useState(null);
 
   const { documents: users, error } = useCollection("users");
   const { updateDocument, response: updateDocRes } = useFirestore("users");
@@ -38,10 +40,12 @@ export default function RequestLoan({ uid, displayName }) {
 
     const loanObj = { loanAmount, uid, displayName };
 
-    if (loanObj.loanAmount <= 0.1 * userBal && loanObj.loanAmount > 0) {
+    if (
+      loanObj.loanAmount <= 0.1 * userBal &&
+      loanObj.loanAmount > 0 &&
+      loanObj.loanAmount !== ""
+    ) {
       addDocument(loanObj);
-    } else {
-      throw new Error();
     }
 
     //   updating balance of loan REQUESTER in 'users' collection
@@ -74,9 +78,20 @@ export default function RequestLoan({ uid, displayName }) {
     };
   }, [response.success]);
 
+  const errHandler = () => {
+    setErr(null);
+  };
+
   return (
     <>
       {/* REQUEST LOAN */}
+      {err && (
+        <ErrorModal
+          title={err.title}
+          message={err.message}
+          errHandler={errHandler}
+        />
+      )}
       <div className={`loan ${mode}`}>
         <h3>
           Request Loan{" "}
@@ -104,10 +119,20 @@ export default function RequestLoan({ uid, displayName }) {
             className="btn request"
             onClick={(e) => {
               e.preventDefault();
-              if (loanAmount !== "") {
+              const loggedInUsrBal = users.filter((u) => u.uid === user.uid)[0]
+                .balance;
+              console.log(loggedInUsrBal);
+              if (
+                loanAmount !== "" &&
+                loanAmount <= 0.1 * loggedInUsrBal &&
+                loanAmount > 0
+              ) {
                 setShowModal(true);
               } else {
-                throw new Error("Please enter an amount");
+                setErr({
+                  title: "An error occured!",
+                  message: "Please enter a correct loan amount.",
+                });
               }
             }}
           >

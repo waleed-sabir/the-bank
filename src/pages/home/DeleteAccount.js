@@ -15,6 +15,7 @@ import closeIcon from "../../assets/close.svg";
 
 // page components
 import Modal from "../../components/Modal";
+import ErrorModal from "../../components/ErrorModal";
 
 // Tippy
 import Tippy from "@tippyjs/react";
@@ -23,6 +24,7 @@ import "tippy.js/dist/tippy.css";
 export default function DeleteAccount({ uid, displayName }) {
   const [confirmEmail, setConfirmEmail] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [err, setErr] = useState(null);
 
   const { documents: users } = useCollection("users");
   const { documents: transactions } = useCollection("transactions");
@@ -91,9 +93,20 @@ export default function DeleteAccount({ uid, displayName }) {
     };
   }, [resUserDoc.success, resTransDoc.success]);
 
+  const errHandler = () => {
+    setErr(null);
+  };
+
   return (
     <>
       {/* DELETE ACCOUNT */}
+      {err && (
+        <ErrorModal
+          title={err.title}
+          message={err.message}
+          errHandler={errHandler}
+        />
+      )}
       <div className={`close ${mode}`}>
         <h3>
           Close Account{" "}
@@ -123,10 +136,25 @@ export default function DeleteAccount({ uid, displayName }) {
             className="btn delete"
             onClick={(e) => {
               e.preventDefault();
-              if (confirmEmail !== "") {
+              const loggedInUsrEmail = users.filter(
+                (u) => u.uid === user.uid
+              )[0].email;
+              console.log(loggedInUsrEmail);
+
+              if (confirmEmail !== "" && confirmEmail === loggedInUsrEmail) {
                 setShowModal(true);
               } else {
-                throw new Error("Please enter an email address");
+                setErr({
+                  title: "An error occured!",
+                  message: "Please enter your correct email address.",
+                });
+              }
+
+              if (loggedInUsrEmail === undefined) {
+                setErr({
+                  title: "An error occured!",
+                  message: "Action not allowed to 'Anonymous user'.",
+                });
               }
             }}
           >

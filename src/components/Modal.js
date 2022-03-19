@@ -2,7 +2,7 @@ import { useTheme } from "../hooks/useTheme";
 
 import "./Modal.css";
 
-export default function Modal({ children, modalRef }) {
+export default function Modal({ children }) {
   const { mode } = useTheme();
 
   return (

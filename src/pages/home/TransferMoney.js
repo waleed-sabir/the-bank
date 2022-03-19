@@ -13,6 +13,7 @@ import closeIcon from "../../assets/close.svg";
 
 // page components
 import Modal from "../../components/Modal";
+import ErrorModal from "../../components/ErrorModal";
 
 // Tippy
 import Tippy from "@tippyjs/react";
@@ -22,9 +23,10 @@ export default function TransferMoney({ uid, displayName, email }) {
   const [transferTo, setTrasnferTo] = useState("");
   const [transferAmount, setTransferAmount] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [err, setErr] = useState(null);
 
-  const { documents: users, error } = useCollection("users");
-  const { documents: transactions, error: err } = useCollection("transactions");
+  const { documents: users } = useCollection("users");
+
   const { user } = useAuthContext();
   const { mode, color } = useTheme();
 
@@ -61,8 +63,6 @@ export default function TransferMoney({ uid, displayName, email }) {
       transferObj.transferAmount > 0
     ) {
       addDocument(transferObj);
-    } else {
-      throw new Error();
     }
 
     //   updating balance of SENDER in 'users' collection
@@ -126,9 +126,20 @@ export default function TransferMoney({ uid, displayName, email }) {
     };
   }, [response.success]);
 
+  const errHandler = () => {
+    setErr(null);
+  };
+
   return (
     <>
       {/* TRANSFER MONEY */}
+      {err && (
+        <ErrorModal
+          title={err.title}
+          message={err.message}
+          errHandler={errHandler}
+        />
+      )}
       <div className={`money ${mode}`}>
         <h3>
           Transfer Money{" "}
@@ -145,9 +156,9 @@ export default function TransferMoney({ uid, displayName, email }) {
               </Tippy>
             </span>
             <input
+              required
               type="email"
               placeholder="e.g. mario@thebank.org"
-              required
               onChange={(e) => setTrasnferTo(e.target.value)}
               value={transferTo}
             />
@@ -171,10 +182,57 @@ export default function TransferMoney({ uid, displayName, email }) {
             className="btn transfer"
             onClick={(e) => {
               e.preventDefault();
-              if (transferTo !== "" && transferAmount !== "") {
+
+              console.log(transferTo);
+
+              const loggedInUsrEmail = users.filter(
+                (u) => u.uid === user.uid
+              )[0].email;
+              console.log(loggedInUsrEmail);
+
+              const loggedInUsrBal = users.filter((u) => u.uid === user.uid)[0]
+                .balance;
+              console.log(loggedInUsrBal);
+
+              const usersEmail = users.map((usr) => usr.email);
+              console.log(usersEmail);
+              console.log(usersEmail.includes(transferTo));
+
+              if (
+                usersEmail.includes(transferTo) &&
+                transferTo !== "" &&
+                transferTo !== loggedInUsrEmail &&
+                transferAmount !== "" &&
+                transferAmount > 0 &&
+                transferAmount < 0.5 * loggedInUsrBal
+              ) {
                 setShowModal(true);
               } else {
-                throw new Error("Please fill in the required fields");
+                setErr({
+                  title: "An error occured!",
+                  message: "Please fill in the fields correctly.",
+                });
+              }
+
+              if (transferTo === loggedInUsrEmail) {
+                setErr({
+                  title: "An error occured!",
+                  message: "Transaction not allowed.",
+                });
+              }
+
+              if (
+                !usersEmail.includes(transferTo) &&
+                transferTo !== "" &&
+                transferTo !== loggedInUsrEmail &&
+                transferAmount !== "" &&
+                transferAmount > 0 &&
+                transferAmount < 0.5 * loggedInUsrBal
+              ) {
+                setErr({
+                  title: "An error occured!",
+                  message: "User does not exist.",
+                });
               }
             }}
           >
