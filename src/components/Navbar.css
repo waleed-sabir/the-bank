@@ -3,7 +3,6 @@
   padding: 1rem;
   background-color: antiquewhite;
   box-sizing: border-box;
-  /* margin-bottom: 80px; */
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.153);
 }
 
@@ -60,7 +59,7 @@
   font-size: 1.6rem;
   color: #fff;
   text-decoration: none;
-  margin-right: 20px;
+  margin-right: 2rem;
   position: relative;
 }
 
@@ -69,10 +68,10 @@
   display: block;
   background-color: #fff;
   position: absolute;
-  height: 3px;
+  height: 0.3rem;
   width: 0;
   left: 0;
-  bottom: -5px;
+  bottom: -0.5rem;
 
   transition: all 0.2s;
 }

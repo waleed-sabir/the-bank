@@ -1,7 +1,7 @@
 .login-form {
   background-color: #a3a3a3;
-  max-width: 360px;
-  margin: 60px auto;
+  max-width: 36rem;
+  margin: 6rem auto;
   padding: 2.8rem;
   border-radius: 1rem;
   color: #fff;
@@ -29,17 +29,17 @@
 .login-form label {
   display: block;
   text-align: left;
-  margin: 30px auto;
+  margin: 3rem auto;
 }
 
 .login-form span {
   font-size: 1.6rem;
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 0.6rem;
 }
 
 .login-form input {
-  padding: 8px 6px;
+  padding: 0.8rem 0.6rem;
   color: #222222;
   width: 97%;
 }

@@ -8,9 +8,9 @@
   z-index: 10;
 }
 .error-modal {
-  padding: 30px;
-  max-width: 480px;
-  margin: 200px auto;
+  padding: 3rem;
+  max-width: 48rem;
+  margin: 20rem auto;
   background: #ffc1c1;
   border-radius: 10px;
   color: #000;
@@ -19,28 +19,28 @@
 
 @media (max-width: 600px) {
   .error-modal {
-    padding: 20px;
+    padding: 2rem;
     margin: 20rem 10rem;
   }
 }
 
 @media (max-width: 425px) {
   .error-modal {
-    padding: 18px;
+    padding: 1.8rem;
     margin: 20rem 7rem;
   }
 }
 
 @media (max-width: 375px) {
   .error-modal {
-    padding: 16px;
+    padding: 1.6rem;
     margin: 20rem 5rem;
   }
 }
 
 @media (max-width: 320px) {
   .error-modal {
-    padding: 14px;
+    padding: 1.4rem;
     margin: 20rem 4rem;
   }
 }

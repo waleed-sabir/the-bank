@@ -8,9 +8,9 @@
   z-index: 10;
 }
 .modal {
-  padding: 30px;
-  max-width: 480px;
-  margin: 200px auto;
+  padding: 3rem;
+  max-width: 48rem;
+  margin: 20rem auto;
   background: #eaeaea;
   border-radius: 10px;
   color: #000;
@@ -19,28 +19,28 @@
 
 @media (max-width: 600px) {
   .modal {
-    padding: 25px;
+    padding: 2.5rem;
     margin: 20rem 10rem;
   }
 }
 
 @media (max-width: 425px) {
   .modal {
-    padding: 20px;
+    padding: 2rem;
     margin: 20rem 7rem;
   }
 }
 
 @media (max-width: 375px) {
   .modal {
-    padding: 20px;
+    padding: 2rem;
     margin: 20rem 5rem;
   }
 }
 
 @media (max-width: 320px) {
   .modal {
-    padding: 14px;
+    padding: 1.4rem;
     margin: 20rem 3.5rem;
   }
 }
