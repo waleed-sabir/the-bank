@@ -11,6 +11,12 @@
   color: #fff;
 }
 
+@media (max-width: 320px) {
+  .navbar span {
+    font-size: 1.8rem;
+  }
+}
+
 .navbar ul {
   display: flex;
   margin: 0 auto;
@@ -28,6 +34,12 @@
   font-size: 1.7rem;
 }
 
+@media (max-width: 320px) {
+  .navbar li.displayname {
+    font-size: 1.4rem;
+  }
+}
+
 .navbar li button {
   font-size: 1.6rem;
   padding: 1rem;
@@ -36,13 +48,19 @@
   transition: all 0.2s;
 }
 
+@media (max-width: 320px) {
+  .navbar li button {
+    padding: 0.8rem;
+    font-size: 1.4rem;
+  }
+}
+
 .navbar li button:hover {
   transform: scale(1.1);
 }
 
 .navbar .logo {
   font-weight: bold;
-
   letter-spacing: 1px;
   display: flex;
   align-items: center;
@@ -61,6 +79,12 @@
   text-decoration: none;
   margin-right: 2rem;
   position: relative;
+}
+
+@media (max-width: 320px) {
+  .navbar a {
+    margin-right: 0.5rem;
+  }
 }
 
 .navbar a::after {
